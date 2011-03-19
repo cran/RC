@@ -1,5 +1,4 @@
 \name{RC.reuse}
-\Rdversion{1.1}
 \alias{RC.reuse}
 \title{
 Reuse computation from the archive
@@ -30,6 +29,7 @@ Check R code against blacklist of potentially dangerous commands
 %% ...
 %%}
 \examples{
+#[not run]
 #RC.demo.r <- RC.ls(keyword='AS2009')
 #RC.demo.res <- RC.reuse(RC.demo.r$url[2])
 #now the RC.fun() function is available and can be executed

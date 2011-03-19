@@ -1,11 +1,10 @@
 \name{RC.blog}
-\Rdversion{1.1}
 \alias{RC.blog}
 \title{
 Blog an R function in the FreeStatistics.org Repository
 }
 \description{
-Use this function to blog any user-defined R function in the Repository (at FreeStatistics.org).
+Use this function to blog any user-defined R function in the Repository (at www.FreeStatistics.org).
 }
 \usage{
 RC.blog(title = "", keywords = "", comments = "", uid = "", pwd = "", 

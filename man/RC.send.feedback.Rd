@@ -1,9 +1,8 @@
 \name{RC.send.feedback}
-\Rdversion{1.1}
 \alias{RC.send.feedback}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Send a complaint to the author
+Send a question/complaint to the author
 }
 \description{
 Use this function if you want to send a complaint or if you want to make a suggestion.

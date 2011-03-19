@@ -1,5 +1,4 @@
 \name{RC.reproduce}
-\Rdversion{1.1}
 \alias{RC.reproduce}
 \title{
 Reproduce a computation
@@ -39,6 +38,7 @@ The reproduced computation may create or change objects in the R session (see RC
 \section{Warning}{This function executes R code in your current R session. This implies that objects may be overwritten or changed as a result of using RC.reproduce().}
 
 \examples{
+#[not run]
 #fetch info about the computations with the 'AS2009' keyword
 #r <- RC.ls(keyword="AS2009")
 #reproduce the second computation

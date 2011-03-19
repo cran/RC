@@ -1,5 +1,4 @@
 \name{RC.end.plot}
-\Rdversion{1.1}
 \alias{RC.end.plot}
 \title{
 End a plot

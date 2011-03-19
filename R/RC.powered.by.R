@@ -1,6 +1,6 @@
 RC.powered.by <-
 function() {
-x <- "All FreeStatistics.org servers are powered by Fedora Linux
+x <- "All FreeStatistics.org servers are powered by Fedora, CentOS, or Ubuntu Linux
 
                                 .:xxxxxxxx:. 
                              .xxxxxxxxxxxxxxxx. 

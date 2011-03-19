@@ -1,17 +1,19 @@
-\name{RC.feedback.submitted}
-\alias{RC.feedback.submitted}
+\name{RC.feedback.computation}
+\alias{RC.feedback.computation}
+%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Fetch all feedback messages from user
+Fetch all feedback about a computation
 }
 \description{
-This function fetches all feedback messages that have been submitted by a user in the forums of FreeStatistics.org.
+This function fetches all feedback messages that have been submitted by any user about the computation.
 }
 \usage{
-RC.feedback.submitted(id = "", echo = TRUE)
+RC.feedback.computation(pk = "", echo = TRUE)
 }
+%- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{id}{
-user id of the person who submitted the feedback
+  \item{pk}{
+primary key of the computation
 }
   \item{echo}{
 boolean parameter which indicates whether the number of records should be displayed
@@ -22,6 +24,7 @@ This function submits a query to the repository at www.freestatistics.org. The r
 }
 \value{
 The function returns a data frame with the following items:
+%%  If it is a LIST, use
   \item{pk}{primary key of the feedback message}
   \item{pk_frcomp}{primary key of the computation}
   \item{username}{the name of the user who posted the feedback}
@@ -30,11 +33,14 @@ The function returns a data frame with the following items:
   \item{date}{the date of submission}
   \item{pk_parent}{primary key of 'parent' feedback message (this is zero if the message has no parent)}
   \item{usernamenotvisible}{a boolean variable which indicates whether the user wishes to remain anonymous (if this variable is 1 then the username and userid will be 'Anonymous'}
+%% ...
 }
 \examples{
-#Fetch the feedback messages that were submitted by the student with User ID = 'b-r0262549' [Not run]
-#r <- RC.feedback.submitted(id='b-r0262549')
+#Fetch the feedback messages that were submitted about the computation with pk = 22149 [not run]
+#r <- RC.feedback.computation(pk=22149)
 }
+% Add one or more standard keywords, see file 'KEYWORDS' in the
+% R documentation directory.
 \keyword{ peer review }
 \keyword{ forum }
 \keyword{ feedback }

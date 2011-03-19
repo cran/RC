@@ -1,5 +1,4 @@
 \name{RC.save.image}
-\Rdversion{1.1}
 \alias{RC.save.image}
 \title{
 Save image

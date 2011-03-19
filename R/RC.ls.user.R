@@ -14,6 +14,7 @@ function(id="", echo=TRUE) {
     }
   }
   if (echo==TRUE) message(paste("Number of valid cases found: ",myindex,".",sep=""))
+  if (myindex == 1000) message("Note: the query engine only returned the first 1000 records!")
   if (myindex > 0) {
     myarr <- data.frame(myarr)
     colnames(myarr) <- c("url","key","folder","date","module","title","keywords","parent","message", "isprivate", "pk")

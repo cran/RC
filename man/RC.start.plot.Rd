@@ -1,5 +1,4 @@
 \name{RC.start.plot}
-\Rdversion{1.1}
 \alias{RC.start.plot}
 \title{
 Start a plot

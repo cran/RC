@@ -1,10 +1,24 @@
 RC.network <-
-function(keyword="workshop", elaborate=TRUE, computations=1, quote=TRUE) {
+function(keyword="workshop", elaborate=TRUE, computations=1, quote=TRUE, startdate="1970-01-01",enddate="4000-12-31") {
+  if (nchar(keyword) < 3) stop("Keyword must be of length 3 or more.")
+  #require(date)
   message("Fetching data...")
   mnoc <- computations - 1
   r <- RC.ls(keyword=keyword, quote=quote, echo=FALSE)
-  message("Filtering data...")
+  message("Filtering users and dates...")
+  startdate <- as.Date(startdate,order="ymd")
+  enddate <- as.Date(enddate,order="ymd")
+  mydate <- as.Date(substr(as.character(r$date),1,10),order="ymd")
+  for (i in 1:length(r[,1])) {
+    if ((mydate[i] >= startdate) & (mydate[i] <= enddate)) {
+    } else {
+      r[i,"user"] <- NA
+    }
+  }
   r <- r[r$user!="",]
+  r <- r[!is.na(r$user),]
+  if (length(r[,1]) < 1) return()
+
   message("Creating key-user index...")
   index <- list()
   for (i in 1:length(r[,1])) {
@@ -14,6 +28,8 @@ function(keyword="workshop", elaborate=TRUE, computations=1, quote=TRUE) {
 
   r <- r[r[,2]!="parent",]
   r <- r[r[,2]!="",]
+  if (length(r[,1]) < 1) return()
+
   message("Searching user names of each parent. This may take a while...")
   ni <- length(r[,1])
   for (i in 1:ni) {
@@ -58,7 +74,7 @@ function(keyword="workshop", elaborate=TRUE, computations=1, quote=TRUE) {
   }
   truelengthdf <- length(df[!is.na(df[,1]),1])
   df <- df[1:truelengthdf,]
-  message("Computing vertices (c.q. meaningful order)...")
+  message("Computing ordered vertices...")
   vrn <- unique(c(rownames(mytabparent), rownames(mytabchild)))
   v <- array(0,dim=c(length(vrn),2))
   for (h in 1:length(vrn)) {

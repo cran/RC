@@ -1,5 +1,4 @@
 \name{RC.wrapper.function}
-\Rdversion{1.1}
 \alias{RC.wrapper.function}
 \title{
 Fetch wrapper function

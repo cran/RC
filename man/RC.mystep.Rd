@@ -1,5 +1,4 @@
 \name{RC.mystep}
-\Rdversion{1.1}
 \alias{RC.mystep}
 \title{
 Step counter

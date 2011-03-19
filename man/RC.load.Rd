@@ -1,5 +1,4 @@
 \name{RC.load}
-\Rdversion{1.1}
 \alias{RC.load}
 \title{
 Load image

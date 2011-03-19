@@ -1,5 +1,4 @@
 \name{RC.meta.data}
-\Rdversion{1.1}
 \alias{RC.meta.data}
 \title{
 Fetch meta data of a statistical computation
@@ -41,7 +40,7 @@ This function returns a list which contains several types of meta data about the
   \item{newformula}{R code as specified by the author or user before it is submitted to the R server}
 }
 \examples{
-#search for computations with the 'AS2009' keyword
+#search for computations with the 'AS2009' keyword [not run]
 #r <- RC.ls(keyword="AS2009")
 #fetch the meta data for the second computation in the list
 #md <- RC.meta.data(r$url[2])

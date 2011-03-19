@@ -1,5 +1,4 @@
 \name{RC.traffic.user}
-\Rdversion{1.1}
 \alias{RC.traffic.user}
 \title{
 Fetch internet traffic from all computations of a specific user
@@ -31,6 +30,7 @@ A list of IP addresses. For each IP address the following sublists are available
 %% ...
 }
 \examples{
+#[not run]
 #traffic <- RC.traffic.user(id="Philippe Versluys")
 #what is the 'impact' of the user?
 #sum(traffic$statistics$sum)

@@ -1,5 +1,4 @@
 \name{RCpicnr}
-\Rdversion{1.1}
 \alias{RCpicnr}
 \title{
 Picture number

@@ -1,5 +1,4 @@
 \name{RC.credits}
-\Rdversion{1.1}
 \alias{RC.credits}
 \title{
 Print credits

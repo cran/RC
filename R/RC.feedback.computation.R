@@ -1,8 +1,8 @@
-RC.feedback.submitted <-
-function(id="", echo=TRUE) {
-  if(id=="") stop("No User ID was specified.")
-  mydata <- list(id=id, submit="Search")
-  r <- strsplit(.RC.post(.RCrepurl,"/index.php?action=909", data.to.send=mydata, referer=.RCversion, port=80),"\n",fixed=T)
+RC.feedback.computation <-
+function(pk="", echo=TRUE) {
+  if(pk=="") stop("No User Primary Key was specified.")
+  mydata <- list(pk=pk, submit="Search")
+  r <- strsplit(.RC.post(.RCrepurl,"/index.php?action=908", data.to.send=mydata, referer=.RCversion, port=80),"\n",fixed=T)
   if (is.na(r)) stop("Error in query engine on freestatistics.org.")
   r2 <- r[[1]]
   if(length(r2)<2) {

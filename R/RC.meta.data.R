@@ -117,7 +117,7 @@ function(url="") {
         #define array and fill it up
         mydataarr <- array(NA,dim=nobs+1)
         dum <- strsplit(re[i]," ; ")
-	dumnchar <- nchar(dum[[1]][2])
+        dumnchar <- nchar(dum[[1]][2])
         mydataarr[1] <- as.numeric(sub(",",".",substr(dum[[1]][2],1,dumnchar-1)))
         for (j in (i+1):(i+nobs)) {
           dumnchar <- nchar(re[j])

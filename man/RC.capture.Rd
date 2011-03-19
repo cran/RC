@@ -1,5 +1,4 @@
 \name{RC.capture}
-\Rdversion{1.1}
 \alias{RC.capture}
 \title{
 Capture expression

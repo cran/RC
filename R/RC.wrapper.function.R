@@ -3,8 +3,7 @@ function(metadata = "") {
 
   if (metadata$type == "Rscript") {
     myraw <- metadata$rawinput
-    stop("Cannot 'reuse' computations that have been generated in the R console. Function is not yet available.")
-    #RC.texteval("RC.fun <- function() { cat('to do...') }\n",echo=FALSE)
+    stop("Cannot 'reuse' computations that have been generated in the R console. You have to fetch the meta data and make changes manually.")
   }
   if (metadata$type == "R module") {
     myraw <- metadata$rawinput
@@ -15,6 +14,7 @@ function(metadata = "") {
     mysnippet <- strsplit(mysnippet,"x <- ")[[1]][2]
     #store original (untransformed) data in RCx
     RC.texteval( paste("RCx <- ",mysnippet,sep=""), echo=FALSE)
+    #note: the number of parameters is limited to 20 (hard coded)
     mypars <- ""
     if (is.na(metadata$par1) != TRUE) mypars <- paste(mypars,"par1='",metadata$par1,"'",sep="")
     if (is.na(metadata$par2) != TRUE) mypars <- paste(mypars,",par2='",metadata$par2,"'",sep="")

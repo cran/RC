@@ -1,5 +1,4 @@
 \name{RC.citation}
-\Rdversion{1.1}
 \alias{RC.citation}
 \title{
 Print citation info

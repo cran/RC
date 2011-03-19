@@ -1,5 +1,4 @@
 \name{RC.tree}
-\Rdversion{1.1}
 \alias{RC.tree}
 \title{
 Fetch tree of parent & child relationships
@@ -27,7 +26,7 @@ The unique URL of the 'current' computation
 %% ...
 %%}
 \examples{
-#search computations with the 'babies' keyword
+#search computations with the 'babies' keyword [not run]
 #r <- RC.ls(keyword="babies")
 #fetch and print the tree about the first computation from the list
 #mytree.1 <- RC.tree(r$url[1])

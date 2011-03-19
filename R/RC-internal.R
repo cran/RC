@@ -1,9 +1,13 @@
 .onAttach <-
 function(libname, pkgName) {
   .RCtitle <- paste(.RC.title(),"version ",.RCversion,sep="")
-
+  Sys.setlocale('LC_ALL','C')
+  library(igraph)
+  library(bitops)
+  #library(date)
+  message("Connecting to remote server...\n")
   if (readLines("http://www.wessa.net/RC/RCbaseversion") != .RCbaseversion)
-    stop("The currently installed package is out of date. You must update the package before you are able to use the RC package again. You can update your packages with the following command: update.packages(repos='http://www.freestatistics.org/cran').")
+    stop("The currently installed package is out of date. You must update the package before you are able to use the RC package again. You can update your packages with the following command: update.packages(repos='http://www.freestatistics.org/cran'). As an alternative you can also download the latest source with the following command: source('http://www.wessa.net/RC/rc.r')")
   if (readLines("http://www.wessa.net/RC/RCversion") != .RCversion) {
       warning(paste(.RCtitle,"\n",.RCterms,"\n\n","*** WARNING ***\n\nA new version of the RC package is available. It is strongly advised that you update the package in the near future. Some features may have been disabled in the currently installed package.",sep="")) 
   }
@@ -32,7 +36,7 @@ function(libname, pkgName) {
 .RCprotag <-
 "R console"
 .RC.myref <-
-"Linux 2.6.30.8-64.fc11.x86_64"
+"Linux 2.6.35-28-generic"
 .RC.trim <-
 function(x) sub(" *([^ ]+) *", "\\1", x)
 
@@ -83,6 +87,40 @@ function(data) {
   myret
 }
 
+#simplified decoder based on base64decode from caTools package
+.RC.decode <- function (z) {
+    require(bitops)
+    z = strsplit(z, NULL)[[1]]
+    if (length(z)%%4 != 0) warning("In .RC.decode: length of data is not a multiple of 4.")
+    alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="
+    alpha = strsplit(alpha, NULL)[[1]]
+    y = match(z, alpha, nomatch = -1) - 1
+    if (any(y == -1)) stop(".RC.decode: Input string is not in Base64 format")
+    if (any(y == 64)) y = y[y != 64]
+    neByte = length(y)
+    nBlock = ceiling(neByte/4)
+    ndByte = 3 * nBlock
+    if (neByte < 4 * nBlock) y[(neByte + 1):(4 * nBlock)] = 0
+    dim(y) = c(4, nBlock)
+    x = matrix(as.integer(0), 3, nBlock)
+    x[1, ] = bitOr(bitShiftL(y[1, ], 2), bitShiftR(y[2, ], 4))
+    x[2, ] = bitOr(bitShiftL(y[2, ], 4), bitShiftR(y[3, ], 2))
+    x[3, ] = bitOr(bitShiftL(y[3, ], 6), y[4, ])
+    x = bitAnd(x, 255)
+    if (neByte%%4 == 2) x = x[1:(ndByte - 2)]
+    if (neByte%%4 == 3) x = x[1:(ndByte - 1)]
+    r = as.raw(x)
+    n = length(r)
+    size = n
+    if (n%%size) {
+      print(n)
+      stop(".RC.decode: number of elements in 'r' is not multiple of 'size'")
+    }
+    x = readBin(r, "character", n = n%/%4, size = NA, signed = T, endian = .Platform$endian)
+    x = paste(x, collapse = "")
+    return(x)
+}
+
 .RC.typeofaccess <-
 function(typeofaccess="public") {
   #are other people allowed to access your computation at freestatistics.org?
@@ -127,7 +165,7 @@ function (host, path, data.to.send, referer = "", port = 80, cookie="") {
                 bol, bo, key, val$filename)), val$object, as.raw(10))
         }
         else {
-	    spcv <- paste(bol,bo,"\nContent-Disposition: form-data; name=\"",key,"\"\n\n",val,"\n",sep="")
+            spcv <- paste(bol,bo,"\nContent-Disposition: form-data; name=\"",key,"\"\n\n",val,"\n",sep="")
             ds <- charToRaw(spcv)
         }
         dc <- dc + length(ds)
@@ -137,6 +175,7 @@ function (host, path, data.to.send, referer = "", port = 80, cookie="") {
     header <- c(header, paste("Content-length: ", dc, "\n\n",sep = ""))
     mypost <- c(charToRaw(paste(header, collapse = "")), mcontent,charToRaw(paste(bol, bo, "--\n\n", sep = "")))
     rm(header, mcontent)
+    #this is where we do the actual http connection
     scon <- socketConnection(host = host, port = port, open = "a+b",blocking = TRUE)
     writeBin(mypost, scon, size = 1)
     output <- character(0)
@@ -151,6 +190,8 @@ function (host, path, data.to.send, referer = "", port = 80, cookie="") {
     }
     options(warn = 0)
     close(scon)
+    #cat(print(output))
+    #RC.debug.output <<- output
     return(output)
 }
 
@@ -247,13 +288,13 @@ function(url="") {
 }
 
 .RCterms <-
-"\n-> Your use of the software is AT YOUR OWN RISK. More info: RC.disclaimer().\n-> This software is a beta release.\n-> Some feature have not yet been activated.\n-> A demonstration is available in RC.demo().\n"
+"\n-> Your use of the software is AT YOUR OWN RISK. More info: RC.disclaimer().\n-> This version is a release candidate.\n-> Use RC.demo() to start the demonstration.\n"
 .RCdisclaimer <-
 "\n###########################################################################\n# GENERAL DISCLAIMER\n# The code provided in this package is provided AS IS without warranty of \n# any kind, either express or implied, including, without limitation, \n# warranties of merchantability, fitness for a particular purpose, and \n# noninfringement. The author uses reasonable efforts to include accurate \n# algorithms and periodically updates the software without notice. However, \n# the author makes no warranties or representations as to the accuracy or \n# completeness of such software, and assumes no liability or responsibility\n# for errors, or software bugs. Your use of this software is AT YOUR OWN \n# RISK. Under no circumstances and under no legal theory shall the author \n# be liable to you or any other person for any direct, indirect, special, \n# incidental, exemplary, or consequential damages arising from your access \n# to, or use of, this software.   \n#\n# SPECIAL WARNING\n# WARNING: This software uses your internet connection to retrieve and store \n# data about statistical computations. Some types of personal information \n# may be transmitted and archived in our online repository. In addition, it \n# is possible that the R code which is reproduced contains code that affects, \n# changes, or replaces objects in your R session or on your hard drive. \n# USE AT YOUR OWN RISK.\n#\n# GPL NOTICE\n# The GPL license only applies to that part of the RC package which is \n# written in R and installed on the local machine of the user. The server-\n# side software is NOT included under the terms of the GPL. Please, contact\n# the author for more information.\n#\n###########################################################################\n"
 .RCversion <-
-"1.0.1-27-beta"
+"1.0.2-13-beta"
 .RCbaseversion <-
-"1.0.1"
+"1.0.2"
 .RChomeurl <-
 "www.wessa.net"
 .RCrepurl <-

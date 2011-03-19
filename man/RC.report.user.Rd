@@ -1,5 +1,4 @@
 \name{RC.report.user}
-\Rdversion{1.1}
 \alias{RC.report.user}
 \title{
 Report about a user
@@ -8,15 +7,15 @@ Report about a user
 Generate a report about the user activities. Various types of frequency statistics are reported.
 }
 \usage{
-RC.report.user(id = "UseR user ", quote = TRUE)
+RC.report.user(id = "UseR user ", recursive = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{id}{
 user id
 }
-  \item{quote}{
-should search be done with quotes?
+  \item{recursive}{
+should the search be done recursively (including children's children)?
 }
 }
 %%\details{
@@ -34,8 +33,10 @@ should search be done with quotes?
   \item{year.month.table}{Frequency of computations by month and year}
   \item{year.month.day.table}{Frequency of computations by day, month, and year}
   \item{hour.table}{Frequency of computations by hour of the day}
+  \item{computations}{list of all computations from the user (this list has the same items as the list that is produced by RC.ls()}
 }
 \examples{
+#[not run]
 #r <- RC.report.user(id="s0801036")
 #r
 }

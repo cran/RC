@@ -10,33 +10,50 @@ while (demo.r != "q") {
 : Quick RC demo :
 =-=-=-=-=-=-=-=-=
 
-h. say 'hello' to the network
-f. find a computation
+sh. say 'hello' to the network
+fc. find a computation
 
-r. 'reproduce' a computation
-s. security guidelines
-b. blog a computation
-e. 'reuse' a computation
+rc. 'reproduce' a computation
+sg. security guidelines
+bc. blog a computation
+ec. 'reuse' a computation
 
-w. query web traffic
-u. user report
+wt. query web traffic
+ur. user report
 
-t. tree of p-c relationships
-n. social network of p-c relationships
+ff. fetch feedback about a computation
+fu. fetch feedback submitted by user
 
-p. pitfalls/problems
+tr. tree of p-c relationships
+sn. social network of p-c relationships
+si. sociogram for individual
+sg. sociogram for group
+
+pp. pitfalls/problems
 
 q. quit demo
 
 ")
   RC.mystep <<- 0
   demo.r <- readline("Which feature should be demonstrated? ")
-  if (demo.r == "h") {
+  if (demo.r == "sh") {
     .RC.print.demo.text("The RC package cannot function without internet connection. The package communicates with several web servers and therefore it is useful to be able to test the connectivity and the computing performance of the network of servers. The RC.hello() function sends a test request to the main web server which initiates a connectivity and performance test on the network. The result is sent back to your computer. If the reported statistics are all 'Excellent' and if all the response times are low (below one second) then any latency that you might have experienced are due to 'local' problems (e.g. connection to your ISP). Let us check the network now...")
     cat("> RC.hello()\n")
     RC.hello()
   }
-  if (demo.r == "b") {
+  if (demo.r == "ff") {
+    .RC.print.demo.text("The RC.feedback.computation() function allows you to fetch all feedback messages about a particular computation. The computation must be identified by its primary key (pk).")
+    cat("> (RC.demo.r <- RC.feedback.computation(pk=22149))\n")
+    print(RC.demo.r <- RC.feedback.computation(pk=22149))
+    .RC.print.demo.text("Observe how several people have posted feedback about this particular computation. Note that the reviewer has the option to submit the feedback anonymously.")
+  }
+  if (demo.r == "fu") {
+    .RC.print.demo.text("The RC.feedback.submitted() function allows you to fetch all feedback messages that were submitted by a particular user. The user must be identified by the User ID that belongs to the account at www.freestatistics.org.")
+    cat("> (RC.demo.r <- RC.feedback.submitted(id='b-r0262549'))\n")
+    print(RC.demo.r <- RC.feedback.submitted(id='b-r0262549'))
+    .RC.print.demo.text("Observe how this particular user opted to submit his/her feedback messages anonymously.")
+  }
+  if (demo.r == "bc") {
     .RC.print.demo.text("Suppose we want to blog the following code snippet: \n\n\t\tx <- data.frame(array(rnorm(100),dim=c(50,2)))\n\t\tcolnames(x) <- c('X1','X2')\n\n\t\tplot(x$X1,x$X2,main='my title')\n\t\tres <- cor.test(x$X1,x$X2)\n\t\tres\n\n\tHow do we prepare this code snippet before we can submit it to the FreeStatistics.org repository?")
     .RC.print.demo.text("First we need to define the data as a data frame which is called RCx:\n\n\t\tRCx <- data.frame(array(rnorm(100),dim=c(50,2)))\n\t\tRCxnames <- c('X1','X2')\n\n\t\tplot(RCx$X1,x$X2,main='my title')\n\t\tres <- cor.test(RCx$X1,RCx$X2)\n\t\tres\n\n")
     .RC.print.demo.text("Now we create a wrapper function which contains the remaining code of the snippet:\n\n\t\tRCx <- data.frame(array(rnorm(100),dim=c(50,2)))\n\t\tRCxnames <- c('X1','X2')\n\n\t\tRC.sample.fun <- function() {\n\t\t\tplot(RCx$X1,RCx$X2,main='my title')\n\t\t\tres <- cor.test(RCx$X1,RCx$X2)\n\t\t\tprint(res)\n\t\t}\n\n\tNote that we need to output the res object with the function print(res) because it is now contained in the wrapper function.")
@@ -55,7 +72,7 @@ q. quit demo
     .RC.print.demo.command("RC.demo.res[length(RC.demo.res[,1]),]",F)
     print(RC.demo.res[length(RC.demo.res[,1]),])
   }
-  if (demo.r == "f") {
+  if (demo.r == "fc") {
     .RC.print.demo.text("First we list all computations which have the 'AS2009' keyword.")
     .RC.print.demo.command("RC.demo.r <- RC.ls(keyword='AS2009')")
     .RC.print.demo.text("Now we observe the contents of the returned object.")
@@ -64,7 +81,7 @@ q. quit demo
     .RC.print.demo.command("labels(RC.demo.r)",F)
     print(labels(RC.demo.r))
   }
-  if (demo.r == "r") {
+  if (demo.r == "rc") {
     .RC.print.demo.text("First we need to identify the unique URL of the computation that we want to reproduce. Suppose that we 'know' that the computation of interest contains the keyword 'AS2009'. We can use the RC.ls(keyword='AS2009') command to obtain a list of all relevant computations.")
     .RC.print.demo.command("r <- RC.ls(keyword='AS2009')")
     .RC.print.demo.text("Now we select the second computation from the list and use it to reproduce the computation on our local machine.")
@@ -76,7 +93,7 @@ q. quit demo
     .RC.print.demo.command("cat(RC.demo.mycode)",F)
     cat(RC.demo.mycode)
   }
-  if (demo.r == "e") {
+  if (demo.r == "ec") {
     .RC.print.demo.text("The difference between RC.reproduce() and RC.reuse() is that the latter allows you to change the computation and blog it easily. The RC.reuse() function creates a wrapper function RC.fun() and stores the data in the object RCx.")
     .RC.print.demo.text("First we fetch the URL of the computation that we wish to reuse. Suppose that we 'know' that the computation of interest contains the keyword 'AS2009'. We can use the RC.ls(keyword='AS2009') command to obtain a list of all relevant computations.")
     .RC.print.demo.command("RC.demo.r <- RC.ls(keyword='AS2009')")
@@ -94,7 +111,7 @@ q. quit demo
     .RC.print.demo.text("Now the function has been changed we can observe the result of RC.fun()...")
     .RC.print.demo.command("RC.fun()")
   }
-  if (demo.r == "t") {
+  if (demo.r == "tr") {
     .RC.print.demo.text("First we need the URL of a compuation. Suppose that we are interested to see the parent-child relationships about a exercise which is related to the so-called 'babies' problem.")
     .RC.print.demo.command("RC.demo.r <- RC.ls(keyword='babies')")
     .RC.print.demo.text("We try the first computation to build a tree.")
@@ -108,7 +125,7 @@ q. quit demo
     .RC.print.demo.command("RC.print.tree(RC.demo.mytree.2)",F)
     RC.print.tree(RC.demo.mytree.2)
   }
-  if (demo.r == "w") {
+  if (demo.r == "wt") {
     .RC.print.demo.text("First we determine the URL of a computation of interest.")
     .RC.print.demo.command("RC.demo.r <- RC.ls(keyword='AS2009')")
     .RC.print.demo.text("Now we fetch the web statistics about the first computation in the list. In order to do this we need the primary key (pk) of the compuation.")
@@ -119,13 +136,27 @@ q. quit demo
     .RC.print.demo.command("RC.demo.traffic",F)
     print(RC.demo.traffic)
   }
-  if (demo.r == "n") {
+  if (demo.r == "sn") {
     .RC.print.demo.text("First we determine the URLs of all computations that contain a specific keyword (which is associated with an assignment).")
     .RC.print.demo.command("RC.demo.r <- RC.network(keyword='exercise')")
     .RC.print.demo.text("The r object contains all parent-child relationships. The 'edges' are defined by the UserIDs and the 'vertices' are sorted by impact which is measured as the total number of computations that are reproduced by peers. The RC.plot.network() function is used to display the sociogram that corresponds to the sociomatrix which is contained in the object RC.demo.r. NOTE: this will only work if the package 'igraph' is installed.")
     .RC.print.demo.command("RC.demo.g <- RC.plot.network(RC.demo.r,colors=c('red','blue'),weights=as.numeric(RC.demo.r$edges$V3))")
   }
-  if (demo.r == "s") {
+  if (demo.r == "si") {
+    .RC.print.demo.text("We can fetch the 'inbound' relationships for any user by simply defining the User ID as keyword.")
+    .RC.print.demo.command("RC.demo.r <- RC.network(keyword='b-s0800184')")
+    .RC.print.demo.text("The r object contains the network of all people from whom the user reproduced computations (= inbound relationships). NOTE: this will only work if the package 'igraph' is installed.")
+    .RC.print.demo.command("RC.demo.g <- RC.plot.network(RC.demo.r)")
+  }
+  if (demo.r == "sg") {
+    .RC.print.demo.text("First we create a vector (of type 'character') with all the User IDs of the users for which the sociogram is to be computed.")
+    .RC.print.demo.command("RC.demo.users <- c('b-s0800252', 'b-s0800298', 'b-s0800944', 'b-s0801290', 'b-s0800032', 'b-s0510133', 'b-s0800417', 'b-s0801466', 'b-s0801156', 'b-s0800969', 'b-s0801215', 'b-s0700554', 'b-s0800458')")
+    .RC.print.demo.text("Now we fetch the 'inbound' networks (for all users) and create the union.")
+    .RC.print.demo.command("RC.demo.r <- RC.network.list(RC.demo.users)")
+    .RC.print.demo.text("The sociogram is now the 'union' of all 'inbound' networks of the specified universe.")
+    .RC.print.demo.command("RC.demo.g <- RC.plot.network(RC.demo.r)")
+  }
+  if (demo.r == "sg") {
     .RC.print.demo.text("Reproducing computations in your R console may be risky because the RC.reproduce() function will fetch the archived R code and execute it on your machine. This R code that is reproduced may create/change any objects in your R session, execute system commands, access your hard disk, and connect to the internet. Therefore the RC package has been designed with a built-in black list of so-called dangerous commands. The RC package checks the R code against the black list before it is executed (secure = TRUE). Let us look at a simple example to illustrate this feature.")
     .RC.print.demo.command("RC.demo.r <- RC.ls(keyword='bagplot')")
     .RC.print.demo.text("The previous command fetches the information about all computations with the 'bagplot' keyword. Let us see what happens when we want to reproduce the first computation in this list.")
@@ -145,7 +176,7 @@ In addition: Warning messages:
     .RC.print.demo.text("Suppose that we have established that the R source code is not harmful in any way. In this case we can proceed and execute the code with the secure=FALSE setting.")
     .RC.print.demo.command("RC.reproduce(RC.demo.r$url[1],secure=FALSE)")
   }
-  if (demo.r == "u") {
+  if (demo.r == "ur") {
     .RC.print.demo.text("The RC.report.user() function fetches the statistics about the computations that have been blogged by a specific user (with id = 's0801036') and computes frequency tables.")
     .RC.print.demo.command("RC.demo.r <- RC.report.user(id='s0801036')")
     .RC.print.demo.command("RC.demo.r",F)
@@ -156,7 +187,7 @@ In addition: Warning messages:
     .RC.print.demo.command("RC.demo.r1 <- RC.report.user(id='s0801234')")
     .RC.print.demo.command("op <- par(mfrow=c(2,2)); plot(RC.demo.r$year.month.day.table); plot(RC.demo.r1$year.month.day.table); plot(RC.demo.r$hour.table); plot(RC.demo.r1$hour.table); par(op)")
   }
-  if (demo.r == "p") {
+  if (demo.r == "pp") {
     .RC.print.demo.text("This section illustrates several pitfalls and problems that may occur. The first example involves computations that are not powered by R (as shown below). Some web based software modules are not based on the R language: for instance the software at http://www.wessa.net/quart.wasp is written in PHP and C. This is part of a collection of 'old' modules which haven't been replaced by genuine R modules yet...")
     .RC.print.demo.command("RC.demo.r <- RC.reproduce('http://www.freestatistics.org/blog/date/2009/Aug/18/t1250581528nxc5br6ix0wvv6k.htm/')",F)
     cat("\nError in source(file = sourceConn, local = FALSE, echo = echo, print.eval = TRUE) : \n  5:22: unexpected numeric constant\n4: #Server: Apache/2.2.9 (Fedora)\n5: X-Powered-By: PHP/5.2.6\n                        ^\nIn addition: There were 42 warnings (use warnings() to see them)\n")

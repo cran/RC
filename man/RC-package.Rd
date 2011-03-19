@@ -1,5 +1,5 @@
 \name{RC-package}
-\Rdversion{1.1}
+%%\Rdversion{1.1}
 \alias{RC-package}
 \alias{RC}
 \docType{package}
@@ -21,7 +21,7 @@ Have a look at the examples in the following functions: RC.ls, RC.tree, RC.blog,
 Package: \tab RC\cr
 Type: \tab Package\cr
 Version: \tab see RC.version()\cr
-Date: \tab 2009-09-22\cr
+Date: \tab 2011-03-20\cr
 License: \tab GPL v2 (only applies to client software)\cr
 LazyLoad: \tab yes\cr
 }
@@ -31,13 +31,15 @@ http://www.wessa.net/ReproducibleComputing/
 \author{
 Patrick Wessa
 
-Maintainer: send complaints to <patrick@wessa.net> or use the RC.send.feedback() function.
+Maintainer: send questions/complaints to <patrick@wessa.net> or use the RC.send.feedback() function.
 
 }
 \references{
 Wessa P., A framework for statistical software development, maintenance, and publishing within an open-access business model, Computational Statistics, 2009, (DOI 10.1007/s00180-008-0107-y)
 
 Wessa, P., Reproducible Computing: a new Technology for Statistics Education and Educational Research, IAENG Transactions on Engineering Technologies, American Institute of Physics, Eds: Ao, Sio-Iong , 2009
+
+Wessa P., Exploring Social Networks in Reproducible Computing and Collaborative Assignments, Proceedings of the International Conference on E-Learning 2009, Toronto, Canada
 
 }
 \keyword{ package }

@@ -1,5 +1,4 @@
 \name{RC.pk}
-\Rdversion{1.1}
 \alias{RC.pk}
 \title{
 Fetch primary key of a computation
@@ -35,6 +34,7 @@ Print result
 \code{\link{RC.traffic}}, \code{\link{RC.traffic.user}}
 }
 \examples{
+#[not run]
 #r <- RC.ls(keyword="AS2009")
 #pk <- RC.pk(r$url[2])
 }

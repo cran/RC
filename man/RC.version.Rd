@@ -1,5 +1,4 @@
 \name{RC.version}
-\Rdversion{1.1}
 \alias{RC.version}
 \title{
 Display version number of the RC package

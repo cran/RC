@@ -1,5 +1,4 @@
 \name{RC.plot.network}
-\Rdversion{1.1}
 \alias{RC.plot.network}
 \title{
 Plot the Sociogram of Impact

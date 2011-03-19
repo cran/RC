@@ -1,5 +1,6 @@
 RC.report.user <-
-function(id="UseR user ", quote=TRUE) {
+function(id="UseR user ", recursive=FALSE) {
+  message("Fetching computations...")
   r <- RC.ls.user(id=id)
   if (is.null(r) == FALSE) {
     #r <- r[r$user==gsub("'","",id),]
@@ -18,7 +19,16 @@ function(id="UseR user ", quote=TRUE) {
     year.month.table <- table(year.month.array)
     year.month.day.table <- table(year.month.day.array)
     hour.table <- table(hour.array)
-    return(list(numcomp=numcomp, module.table=module.table, keywords.table=keywords.table, year.table=year.table, month.table=month.table, day.table=day.table, year.month.table=year.month.table, year.month.day.table=year.month.day.table, hour.table=hour.table))
+    mycompchildren <- r
+    if (recursive==TRUE) {
+      message("Fetching children of all computations. This may take a while...")
+      mycompchildren = vector("list",numcomp)
+      for (h in 1:numcomp) {
+        dum <- RC.tree(r$url[h])
+        mycompchildren[[h]] = list(computation=r[h,], tree=dum)
+      }
+    }
+    return(list(numcomp=numcomp, module.table=module.table, keywords.table=keywords.table, year.table=year.table, month.table=month.table, day.table=day.table, year.month.table=year.month.table, year.month.day.table=year.month.day.table, hour.table=hour.table, computations=mycompchildren))
   }
 }
 

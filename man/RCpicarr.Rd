@@ -1,5 +1,4 @@
 \name{RCpicarr}
-\Rdversion{1.1}
 \alias{RCpicarr}
 \title{
 Picture array

@@ -1,5 +1,4 @@
 \name{RC.texteval}
-\Rdversion{1.1}
 \alias{RC.texteval}
 \title{
 Evaluate text in the R interpreter

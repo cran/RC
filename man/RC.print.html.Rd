@@ -1,5 +1,4 @@
 \name{RC.print.html}
-\Rdversion{1.1}
 \alias{RC.print.html}
 \title{
 Print the HTML output of a computation
@@ -26,6 +25,7 @@ This function converts the tables of the HTML output into R objects (arrays) and
 %% ...
 %%}
 \examples{
+#[not run]
 #r <- RC.ls(keyword="airline")
 #RC.reproduce(r$url[40])
 #convert the HTML output and print it

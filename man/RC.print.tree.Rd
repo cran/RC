@@ -1,5 +1,4 @@
 \name{RC.print.tree}
-\Rdversion{1.1}
 \alias{RC.print.tree}
 \title{
 Print tree of parent-child relationships
@@ -27,6 +26,7 @@ tree produced by RC.tree()
 %% ...
 %%}
 \examples{
+#[not run]
 #search computations with the 'babies' keyword
 #r <- RC.ls(keyword="babies")
 #fetch and print the tree about the first computation from the list

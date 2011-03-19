@@ -137,6 +137,7 @@ function(title="",keywords="",comments="",uid="",pwd="",typeofaccess="public",mo
 
   #remove certain html tags from the result page
   r <- gsub("<br />","\n",r)
+  r <- gsub("<br>","\n",r)
   r <- gsub("&amp;","&",r)
   r <- gsub("<a href=\"","",r)
   r <- gsub("\" target=\"_blank\"><u><b>this unique URL</b></u></a>","",r)

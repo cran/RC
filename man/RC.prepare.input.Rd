@@ -1,5 +1,4 @@
 \name{RC.prepare.input}
-\Rdversion{1.1}
 \alias{RC.prepare.input}
 \title{
 Prepare Raw Input
@@ -27,6 +26,7 @@ returns pre-processed R code which can be recomputed
 %% ...
 }
 \examples{
+#[not run]
 #r <- RC.ls.user(id='UseR')
 #fetching meta data about a computation that was generated in the console
 #md <- RC.meta.data(r$url[21])

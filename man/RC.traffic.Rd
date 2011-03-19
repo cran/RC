@@ -1,5 +1,4 @@
 \name{RC.traffic}
-\Rdversion{1.1}
 \alias{RC.traffic}
 \title{
 Fetch internet traffic about a computation
@@ -35,6 +34,7 @@ print intermediary results?
 \code{\link{RC.traffic.user}}
 }
 \examples{
+#[not run]
 #r <- RC.ls(keyword="AS2009")
 #pk <- RC.pk(r$url[2])
 #(traffic <- RC.traffic(pk=pk))
@@ -47,6 +47,7 @@ print intermediary results?
 #4  66.249.71.101     5
 #5  84.194.80.219     5
 
+#[not run]
 #now an example with many IP addresses
 #r <- RC.ls(keyword="exercise")
 #tree <- RC.tree(r$url[50])

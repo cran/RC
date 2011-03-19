@@ -1,5 +1,4 @@
 \name{RC.disclaimer}
-\Rdversion{1.1}
 \alias{RC.disclaimer}
 \title{
 Print disclaimer

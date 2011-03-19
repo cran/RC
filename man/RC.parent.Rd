@@ -1,5 +1,4 @@
 \name{RC.parent}
-\Rdversion{1.1}
 \alias{RC.parent}
 \title{
 Parent key
